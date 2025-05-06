@@ -1,0 +1,6 @@
+student-app-frontend/node_modules/
+student-app-frontend/dist/
+student-application-system/target/
+.idea/
+*.iml
+.DS_Store

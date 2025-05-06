@@ -1,0 +1,66 @@
+<h2>Offer Report</h2>
+
+<!-- Company filter -->
+<label for="companySelect">Filter by Company:</label>
+<select [(ngModel)]="selectedCompany" (change)="filterOffers()" id="companySelect">
+  <option value="">All Companies</option>
+  <option *ngFor="let c of companies" [value]="c">{{ c }}</option>
+</select>
+
+<!-- Student filter -->
+<label for="studentSelect">Filter by Student ID:</label>
+<select [(ngModel)]="selectedStudent" (change)="filterOffers()" id="studentSelect">
+  <option value="">All Students</option>
+  <option *ngFor="let sid of studentIds" [value]="sid">{{ sid }}</option>
+</select>
+
+
+
+<!-- Offer Table -->
+<table border="1" *ngIf="filteredOffers.length">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Company</th>
+      <th>Student ID</th>
+      <th>Offer Date</th>
+      <th>Salary</th>
+      <th>Status</th>
+      <th>Decision Year</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let offer of filteredOffers">
+      <td>{{ offer.id }}</td>
+      <td>{{ offer.companyName }}</td>
+      <td>{{ offer.studentId }}</td>
+      <td>{{ offer.offerDate }}</td>
+      <td>
+        <input type="number" [(ngModel)]="offer.salary" 
+               (change)="updateOfferField(offer, 'salary', offer.salary)" />
+      </td>
+      <td>
+        <select [(ngModel)]="offer.status" 
+                (change)="updateOfferField(offer, 'status', offer.status)">
+          <option value="underconsideration">Under Consideration</option>
+          <option value="accepted">Accepted</option>
+          <option value="rejected">Rejected</option>
+        </select>
+      </td>
+      <td>
+        <input type="number" [(ngModel)]="offer.decisionYear" 
+               (change)="updateOfferField(offer, 'decisionYear', offer.decisionYear)" />
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Salary Stats -->
+<p *ngIf="filteredOffers.length">
+  Average Salary: {{ getAverageSalary() }} |
+  Max Salary: {{ getMaxSalary() }} |
+  Min Salary: {{ getMinSalary() }}
+</p>
+
+<p *ngIf="!filteredOffers.length">No offers to display.</p>
+

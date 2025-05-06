@@ -1,0 +1,99 @@
+<h2>All Applications</h2>
+
+<!-- Form to Add Application -->
+<table border="1">
+  <thead>
+    <tr>
+      <th>Company</th>
+      <th>Student ID</th>
+      <th>Apply Date</th>
+      <th>Reject Date</th>
+      <th>Offer Date</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><input type="text" [(ngModel)]="newApplication.companyName" name="companyName" /></td>
+      <td><input type="number" [(ngModel)]="newApplication.studentId" name="studentId" /></td>
+      <td><input type="date" [(ngModel)]="newApplication.applyDate" name="applyDate" /></td>
+      <td><input type="date" [(ngModel)]="newApplication.rejectDate" name="rejectDate" /></td>
+      <td><input type="date" [(ngModel)]="newApplication.offerDate" name="offerDate" /></td>
+      <td><button (click)="addApplication()">Add</button></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Application List Table -->
+<table border="1" style="margin-top: 10px;">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Company</th>
+      <th>Student ID</th>
+      <th>Apply_Date</th>
+      <th>Reject Date</th>
+      <th>Offer Date</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let app of applications">
+      <td>{{ app.id }}</td>
+
+      <td *ngIf="editingApplication?.id === app.id">
+        <input [(ngModel)]="editingApplication!.companyName" name="editCompanyName" />
+      </td>
+      <td *ngIf="editingApplication?.id !== app.id">
+        {{ app.companyName }}
+      </td>
+
+      <td *ngIf="editingApplication?.id === app.id">
+        <input type="number" [(ngModel)]="editingApplication!.studentId" name="editStudentId" />
+      </td>
+      <td *ngIf="editingApplication?.id !== app.id">
+        {{ app.studentId }}
+      </td>
+
+      <td *ngIf="editingApplication?.id === app.id">
+        <input type="date" [(ngModel)]="editingApplication!.applyDate" name="editApplyDate" />
+      </td>
+      <td *ngIf="editingApplication?.id !== app.id">
+        {{ app.applyDate }}
+      </td>
+
+      <td *ngIf="editingApplication?.id === app.id">
+        <input type="date" [(ngModel)]="editingApplication!.rejectDate" name="editRejectDate" />
+      </td>
+      <td *ngIf="editingApplication?.id !== app.id">
+        {{ app.rejectDate }}
+      </td>
+
+      <td *ngIf="editingApplication?.id === app.id">
+        <input type="date" [(ngModel)]="editingApplication!.offerDate" name="editOfferDate" />
+      </td>
+      <td *ngIf="editingApplication?.id !== app.id">
+        {{ app.offerDate }}
+      </td>
+
+      <td>
+        <button *ngIf="editingApplication?.id !== app.id" (click)="editApplication(app)">Edit</button>
+        <button *ngIf="editingApplication?.id === app.id" (click)="updateApplication()">Save</button>
+        <button *ngIf="editingApplication?.id === app.id" (click)="cancelEdit()">Cancel</button>
+        <button (click)="deleteApplication(app.id)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
